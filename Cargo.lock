@@ -262,6 +262,7 @@ dependencies = [
  "Harmony",
  "actix-web",
  "serde",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -473,6 +474,7 @@ dependencies = [
 name = "frontend"
 version = "0.1.0"
 dependencies = [
+ "wasm-bindgen",
  "yew",
 ]
 
