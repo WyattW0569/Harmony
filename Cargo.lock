@@ -262,7 +262,6 @@ dependencies = [
  "Harmony",
  "actix-web",
  "serde",
- "wasm-bindgen",
 ]
 
 [[package]]

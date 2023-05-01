@@ -1,12 +1,12 @@
 use yew::prelude::*;
 
 #[function_component(App)]
-fn App() -> Html {
+fn app() -> Html {
     html! {
-        <h1>{ Hello from yew }</h1>
+        <h1>{ "Hello World" }</h1>
     }
 }
 
 fn main() {
-    yew::start_app::<App>();
+    yew::Renderer::<App>::new().render();
 }
