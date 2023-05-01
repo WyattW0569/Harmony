@@ -1,3 +1,4 @@
+use actix_files::Files;
 use actix_web::{App,HttpServer};
 
 mod api;
@@ -10,7 +11,8 @@ use api::route::{
 #[actix_web::main]
 async fn main() -> std::io::Result<()>{
     HttpServer::new(|| App::new()
-        .service(tom))
+        .service(tom)
+        .service(Files::new("/", "././frontend/dist/").index_file("index.html")))
         .bind("0.0.0.0:5050")?
         .run()
         .await 
