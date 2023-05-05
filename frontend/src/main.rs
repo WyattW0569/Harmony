@@ -2,6 +2,16 @@ use yew::functional::*;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+mod components;
+
+use components::message::{
+    MessageBlock,
+};
+
+use components::input::{
+    InputBlock,
+};
+
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
 enum Route {
     #[at("/")]
@@ -13,44 +23,6 @@ enum Route {
     NotFound,
 }
 
-enum Msg {
-    ChangeColour,
-}
-
-struct MessageBlock {
-    Colour: String,
-}
-
-impl Component for MessageBlock {
-    type Message = Msg;
-    type Properties = ();
-
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            Colour: "#9999ff".to_string()
-        }
-    }
-
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::ChangeColour => {
-                self.Colour = "#00FF00".to_string();
-                true // re-render 
-            }
-        }
-    }
-
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let link = ctx.link();
-        let style = format!("background-color: {}", self.Colour);
-        html! {
-            <div class="container" style={style}>
-                <h1> { "This is a Message Block" } </h1>
-                <button onclick = {link.callback(|_| Msg::ChangeColour)}> {"click me!"} </button>
-            </div>
-        }
-    }
-}
 
 #[function_component(Home)]
 fn home() -> Html {
@@ -67,6 +39,9 @@ fn home() -> Html {
                 <h1>{ "hey hehe" }</h1>
                 <h2>{ "hey hehe but smaller" }</h2>
                 { for MessageBlocks }
+            </div>
+            <div>
+                <InputBlock/>
             </div>
         </>
     }
