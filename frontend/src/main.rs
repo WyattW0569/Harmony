@@ -9,7 +9,7 @@ use components::message::{
 };
 
 use components::input::{
-    InputBlock,
+    TextInput,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
@@ -31,17 +31,17 @@ fn home() -> Html {
     let to_test = Callback::from(move |_| navigator.push(&Route::Test));
     html! {
         <>
+            <div>
+                <TextInput/>
+            </div>
             <div class="container">
                 <h1>{ "test!" }</h1>
                 <button onclick={to_test}>{ "to test!!" }</button>
             </div>
             <div>
                 <h1>{ "hey hehe" }</h1>
-                <h2>{ "hey hehe but smaller" }</h2>
+                <h2>{ "hey but smaller" }</h2>
                 { for MessageBlocks }
-            </div>
-            <div>
-                <InputBlock/>
             </div>
         </>
     }

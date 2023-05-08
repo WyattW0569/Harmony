@@ -1,37 +1,34 @@
+use gloo::console::log;
+use wasm_bindgen::JsCast;
+use web_sys::{EventTarget, HtmlInputElement};
 use yew::prelude::*;
-pub enum Msg {
-    Update(String),
+
+struct Msg{
+   Message: String,
 }
 
-pub struct InputBlock {
-    content: String,
-}
+#[function_component(TextInput)]
+pub fn text_input() -> Html {
+    let input_value_handle = use_state(String::default);
+    let input_value = (*input_value_handle).clone();
 
-impl Component for InputBlock {
-    type Message = Msg;
-    type Properties = ();
+    let on_change = Callback::from(move |e: Event| {
+        let target: EventTarget = e
+        .target()
+        .expect("Event should have a target when dispatched");
+    input_value_handle.set(target.unchecked_into::<HtmlInputElement>().value());
+    let input_value = input_value_handle.to_string();
+    });
 
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            content: "".to_string()
-        }
-    }
 
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::Update(content) => self.content = content.to_uppercase(),
-        }
-        true
-    }
-
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let link = ctx.link();
-        html! {
-            <textarea
-                oninput={link.callback(|event: InputData| Msg::Update(event.value))}
-                value={self.content.clone()}>
-            </textarea>
-        }
+    html! {
+        <>
+            <h1> { "Input!!!!" } </h1>
+            <input onchange={on_change}
+            type="text"
+            value={input_value.clone()}
+            />
+            <h1> { input_value } </h1>
+        </>
     }
 }
-//https://dev.to/fllstck/basic-interactions-with-yew-3pa3 for tom <3

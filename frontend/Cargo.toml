@@ -10,3 +10,5 @@ yew = { version = "0.20.0", features = ["csr"] }
 wasm-bindgen = "0.2.84"
 yew-router = "0.17.0"
 yew-stdweb = "0.18.0"
+web-sys = "0.3.61"
+gloo = "0.8.0"
