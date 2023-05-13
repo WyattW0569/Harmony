@@ -6,8 +6,17 @@ use uuid::Uuid;
 
 mod components;
 
+<<<<<<< HEAD
 use components::websocket::{
     WebSocketClient,
+=======
+use components::message::{
+    MessageBlock,
+};
+
+use components::input::{
+    TextInput,
+>>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
@@ -37,14 +46,30 @@ fn home() -> Html {
     let navigator = use_navigator().unwrap();
     let to_test = Callback::from(move |_| navigator.push(&Route::Test));
     html! {
+<<<<<<< HEAD
         <body >
             <h1 class ="centre">
                 { "Harmony" }
             </h1>
+=======
+        <>
+            <div>
+                <TextInput/>
+            </div>
+>>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
             <div class="container">
                 <button onclick={to_test}>{ "Create Lobby" }</button>
             </div>
+<<<<<<< HEAD
         </body>
+=======
+            <div>
+                <h1>{ "hey hehe" }</h1>
+                <h2>{ "hey but smaller" }</h2>
+                { for MessageBlocks }
+            </div>
+        </>
+>>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
     }
 }
 
