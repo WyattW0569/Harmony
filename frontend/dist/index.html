@@ -3,11 +3,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="/style-eecf39ad754c222b.css">
+    <link rel="stylesheet" href="/style-d4ca50fe54824cac.css">
 
-<link rel="preload" href="/frontend-ca42ee292cb2d010_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/frontend-ca42ee292cb2d010.js"></head>
+<link rel="preload" href="/frontend-63de924487a2ac9b_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/frontend-63de924487a2ac9b.js"></head>
 <body>
     <h1></h1>
 
-<script type="module">import init from '/frontend-ca42ee292cb2d010.js';init('/frontend-ca42ee292cb2d010_bg.wasm');</script></body></html>
+<script type="module">import init from '/frontend-63de924487a2ac9b.js';init('/frontend-63de924487a2ac9b_bg.wasm');</script><script>(function () {
+    var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    var url = protocol + '//' + window.location.host + '/_trunk/ws';
+    var poll_interval = 5000;
+    var reload_upon_connect = () => {
+        window.setTimeout(
+            () => {
+                // when we successfully reconnect, we'll force a
+                // reload (since we presumably lost connection to
+                // trunk due to it being killed, so it will have
+                // rebuilt on restart)
+                var ws = new WebSocket(url);
+                ws.onopen = () => window.location.reload();
+                ws.onclose = reload_upon_connect;
+            },
+            poll_interval);
+    };
+
+    var ws = new WebSocket(url);
+    ws.onmessage = (ev) => {
+        const msg = JSON.parse(ev.data);
+        if (msg.reload) {
+            window.location.reload();
+        }
+    };
+    ws.onclose = reload_upon_connect;
+})()
+</script></body></html>
