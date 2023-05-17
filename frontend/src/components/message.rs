@@ -15,14 +15,14 @@ impl Component for MessageBlock {
 
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            colour: "#9999ff".to_string()
+            colour: "#46004f".to_string()
         }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ChangeColour => {
-                self.colour = "#00FF00".to_string();
+                self.colour = "#85006c".to_string();
                 true // re-render 
             }
         }

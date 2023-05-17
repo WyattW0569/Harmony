@@ -47,7 +47,7 @@ fn home() -> Html {
     html! {
         <>
             <div class="container title">
-                <h1>{ "Harmony" }</h1>
+                <img src="static/logo.png" alt="Harmony" class="centre"/> 
                 <div class="container">
                     <button onclick={to_test}>{ "Create Room" }</button>
                 </div>
