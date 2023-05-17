@@ -6,33 +6,27 @@ use uuid::Uuid;
 
 mod components;
 
-<<<<<<< HEAD
-use components::websocket::{
-    WebSocketClient,
-=======
 use components::message::{
     MessageBlock,
 };
 
 use components::input::{
     TextInput,
->>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
+};
+
+use components::websocket::{
+    WebSocketClient,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
 enum Route {
     #[at("/")]
     Home,
-    #[at("/test")]
-    Test,
+    #[at("/room")]
+    Room,
     #[not_found]
     #[at("/404")]
     NotFound,
-}
-
-fn gen_uuid() -> Uuid{ 
-    let id = Uuid::new_v4();
-    id
 }
 
 async fn open_lobby(id: Uuid) {
@@ -40,36 +34,30 @@ async fn open_lobby(id: Uuid) {
     return Request::get(&url).send().await.unwrap().json().await.unwrap();
 }
 
+async fn get_open_rooms() {
+    let url = "http://localhost/api/rooms";
+}
+
 
 #[function_component(Home)]
 fn home() -> Html {
+    let MessageBlocks: Vec<_> = (0..3).map(|_| html_nested!{<MessageBlock/>}).collect();
     let navigator = use_navigator().unwrap();
-    let to_test = Callback::from(move |_| navigator.push(&Route::Test));
+    let to_test = Callback::from(move |_| navigator.push(&Route::Room));
     html! {
-<<<<<<< HEAD
-        <body >
-            <h1 class ="centre">
-                { "Harmony" }
-            </h1>
-=======
         <>
-            <div>
-                <TextInput/>
+            <div class="container title">
+                <h1>{ "Harmony" }</h1>
+                <div class="container">
+                    <button onclick={to_test}>{ "Create Room" }</button>
+                </div>
             </div>
->>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
-            <div class="container">
-                <button onclick={to_test}>{ "Create Lobby" }</button>
-            </div>
-<<<<<<< HEAD
-        </body>
-=======
-            <div>
-                <h1>{ "hey hehe" }</h1>
-                <h2>{ "hey but smaller" }</h2>
+            <div class="server-list">
+                <h1>{ " Server List "}</h1>
+                <h2>{ "| under construction |" }</h2>
                 { for MessageBlocks }
             </div>
         </>
->>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
     }
 }
 
@@ -82,16 +70,16 @@ fn app() -> Html {
         </BrowserRouter>
     }
 }
-#[function_component(Lobby)]
-fn test() -> Html {
+#[function_component(Room)]
+fn room() -> Html {
 
-    let id = gen_uuid();
+    let id = Uuid::new_v4();
     open_lobby(id);
     
     html! {
         <>
-            <h1>{ format!("Lobby on -  {}",id) }</h1>
-            <WebSocketClient url={format!("ws://10.0.0.15/api/{}",id)}/>
+            <h1>{ format!("test on -  {}",id) }</h1>
+            <WebSocketClient url={format!("ws://10.57.17.0/api/{}",id)}/>
         </>
     }
 }
@@ -100,7 +88,7 @@ fn test() -> Html {
 fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html! {<Home/>},
-        Route::Test => html! {<Lobby/>},
+        Route::Room => html! {<Room/>},
         Route::NotFound => html! {<h1>{ "404 lol" }</h1>},
     }
 }

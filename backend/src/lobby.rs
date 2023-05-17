@@ -9,7 +9,7 @@ type Socket = Recipient<WsMessage>;
 
 pub struct Lobby {
     sessions: HashMap<Uuid, Socket>, // self id
-    rooms: HashMap<Uuid, HashSet<Uuid>>, // list of users in a room 
+    rooms: HashMap<Uuid, HashSet<Uuid>>, // list of users in a room
 }
 
 impl Default for Lobby{
@@ -31,6 +31,10 @@ impl Lobby {
             println!("Can't find user id, unable to send message")
         }
 
+    }
+
+    pub fn get_open_rooms(&self) /*-> HashMap<Uuid, HashSet<Uuid>>*/{
+        println!("{:?}",self.rooms);
     }
 }
 

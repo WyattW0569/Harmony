@@ -109,11 +109,7 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for WebSocketConnecti
                 ctx.stop();
             }
             // Not going implenet Coninuation, Basically just for messages that are too long for a single message
-<<<<<<< HEAD
             Ok(ws::Message::Continuation(_bin)) => ctx.stop(),
-=======
-            Ok(ws::Message::Continuation(bin)) => ctx.stop(),
->>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
             // no operation
             Ok(ws::Message::Nop) => (),
             // Text message, what we want, send it to the lobby, lobby will send it out.

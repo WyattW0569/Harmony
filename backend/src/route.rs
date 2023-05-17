@@ -1,11 +1,10 @@
 use crate::ws::WebSocketConnection;
-use crate::lobby::Lobby;
+use crate::lobby::{Lobby};
+
+use std::collections::{HashMap, HashSet};
 
 use actix::Addr;
-<<<<<<< HEAD
 use actix_files::Files;
-=======
->>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
 use actix_web::{
     get,
     web::Data,
@@ -43,11 +42,12 @@ pub async fn start_connection(
     );
 
     let resp = ws::start(ws, &req, stream)?;
-<<<<<<< HEAD
 
     Ok(resp)
 }
-=======
-    Ok(resp)
-}
->>>>>>> 7763ccee116f3ae32850e28a92a6ed1661992daa
+
+/*#[get("/rooms")]
+pub async fn parse_rooms() -> Json<String>{
+    let rooms: HashMap<Uuid, HashSet<Uuid>> = Lobby::get_open_rooms();
+    return Json("Testing Rooms".to_string());
+}*/

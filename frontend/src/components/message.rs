@@ -1,4 +1,5 @@
 use yew::prelude::*;
+use uuid::Uuid;
 
 pub enum Msg {
     ChangeColour,
@@ -30,10 +31,11 @@ impl Component for MessageBlock {
     fn view(&self, ctx: &Context<Self>) -> Html {
         let link = ctx.link();
         let style = format!("background-color: {}", self.colour);
+        let DEMO_ID = Uuid::new_v4().to_string();
         html! {
             <div class="container" style={style}>
-                <h1> { "This is a Message Block" } </h1>
-                <button onclick = {link.callback(|_| Msg::ChangeColour)}> {"click me!"} </button>
+                <h1> { DEMO_ID } </h1>
+                <button onclick = {link.callback(|_| Msg::ChangeColour)}> {"Join!"} </button>
             </div>
         }
     }
