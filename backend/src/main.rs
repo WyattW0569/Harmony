@@ -1,6 +1,7 @@
-use actix::Actor;
+use actix::{Actor, Addr};
 use actix_files::Files;
-use actix_web::{App,HttpServer, web::scope};
+use actix_web::{App,HttpServer, web::scope, web};
+use once_cell::sync::Lazy;
 
 mod route;
 mod lobby;
@@ -11,27 +12,29 @@ mod messages;
 use route::{
     tom,
     start_connection,
+    parse_rooms,
 };
 
 //.service(Files::new("/", "././frontend/dist/").index_file("index.html"))
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()>{
-    let lobby = Lobby::default();
-    async {
-        loop{
-            let _ = &lobby.get_open_rooms();
-        }
-    };
-    let chat_server = lobby.start();
+    //Lobby::default().start();
+    static LOBBY: Lazy<Addr<Lobby>> = Lazy::new(||{ 
+        let lobby = Lobby::default().start();
+        lobby
+    });
+
     HttpServer::new(move || {
         App::new()
             .service(
                 scope("/api")
                     .service(tom)
+                    .service(parse_rooms)
                     .service(start_connection)
             )
-            .data(chat_server.clone())
+            .app_data(web::Data::new(LOBBY.clone()))
+            .data(LOBBY.clone())
         })
         .bind(("0.0.0.0", 80))?
         .run()

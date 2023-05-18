@@ -639,6 +639,7 @@ dependencies = [
  "actix-web",
  "actix-web-actors",
  "cargo-watch",
+ "once_cell",
  "serde",
  "uuid 0.8.2",
 ]

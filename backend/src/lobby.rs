@@ -1,5 +1,5 @@
-use crate::messages::{Connect, Disconnect, ClientActorMessage, WsMessage};
-use actix::prelude::{Actor, Context, Handler, Recipient};
+use crate::messages::{Connect, Disconnect, ClientActorMessage, WsMessage, GetRoomsMessage};
+use actix::prelude::{Actor, Context, Handler, Recipient, MessageResult};
 use std::collections::{HashMap, HashSet};
 use uuid::Uuid;
 
@@ -112,5 +112,15 @@ impl Handler<ClientActorMessage> for Lobby {
             self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(&msg.msg, client));
 
         }
+    }
+}
+
+impl Handler<GetRoomsMessage> for Lobby {
+    type Result = MessageResult<GetRoomsMessage>;
+
+    fn handle(&mut self, _: GetRoomsMessage, _:&mut Context<Self>) -> Self::Result {
+        
+        return MessageResult(self.rooms.clone());
+        
     }
 }

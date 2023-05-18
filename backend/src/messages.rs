@@ -1,5 +1,6 @@
 use actix::prelude::{Message, Recipient};
 use uuid::Uuid;
+use std::collections::{HashMap, HashSet};
 
 // This is what WebSocketConnection is looking for
 #[derive(Message)]
@@ -31,3 +32,7 @@ pub struct ClientActorMessage {
     pub msg: String,
     pub room_id: Uuid
 }
+
+#[derive(Message)]
+#[rtype(result = "HashMap<Uuid, HashSet<Uuid>>")] // try hashmap
+pub struct GetRoomsMessage;

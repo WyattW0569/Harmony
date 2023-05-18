@@ -36,6 +36,7 @@ async fn open_lobby(id: Uuid) {
 
 async fn get_open_rooms() {
     let url = "http://localhost/api/rooms";
+    return Request::get(&url).send().await.unwrap().json().await.unwrap();
 }
 
 
@@ -44,6 +45,8 @@ fn home() -> Html {
     let MessageBlocks: Vec<_> = (0..3).map(|_| html_nested!{<MessageBlock/>}).collect();
     let navigator = use_navigator().unwrap();
     let to_test = Callback::from(move |_| navigator.push(&Route::Room));
+    let server_map = get_open_rooms();
+    
     html! {
         <>
             <div class="container title">

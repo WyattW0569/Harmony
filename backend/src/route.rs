@@ -1,5 +1,6 @@
 use crate::ws::WebSocketConnection;
-use crate::lobby::{Lobby};
+use crate::lobby::Lobby;
+use crate::messages::GetRoomsMessage;
 
 use std::collections::{HashMap, HashSet};
 
@@ -14,6 +15,7 @@ use actix_web::{
     HttpResponse, 
     HttpRequest,  
     web::Json,
+    web,
 };
 use actix_web_actors::ws;
 use uuid::Uuid;
@@ -46,8 +48,8 @@ pub async fn start_connection(
     Ok(resp)
 }
 
-/*#[get("/rooms")]
-pub async fn parse_rooms() -> Json<String>{
-    let rooms: HashMap<Uuid, HashSet<Uuid>> = Lobby::get_open_rooms();
-    return Json("Testing Rooms".to_string());
-}*/
+#[get("/rooms")]
+pub async fn parse_rooms(lobby: web::Data<Addr<Lobby>>) -> Json<String> {
+    let resp = lobby.send(GetRoomsMessage).await.unwrap();
+    return Json(format!("Rooms - {:?}", resp).to_string());
+}
