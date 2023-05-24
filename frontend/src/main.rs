@@ -1,17 +1,15 @@
 use yew::functional::*;
 use yew::prelude::*;
 use yew_router::prelude::*;
+use yew_stdweb::format::Json;
 use reqwasm::http::Request;
 use uuid::Uuid;
+use std::collections::{HashMap, HashSet};
 
 mod components;
 
-use components::message::{
-    MessageBlock,
-};
-
-use components::input::{
-    TextInput,
+use components::room::{
+    RoomBlock,
 };
 
 use components::websocket::{
@@ -34,19 +32,12 @@ async fn open_lobby(id: Uuid) {
     return Request::get(&url).send().await.unwrap().json().await.unwrap();
 }
 
-async fn get_open_rooms() {
-    let url = "http://localhost/api/rooms";
-    return Request::get(&url).send().await.unwrap().json().await.unwrap();
-}
-
-
 #[function_component(Home)]
 fn home() -> Html {
-    let MessageBlocks: Vec<_> = (0..3).map(|_| html_nested!{<MessageBlock/>}).collect();
+    //let MessageBlocks: Vec<_> = (0..3).map(|_| html_nested!{<MessageBlock/>}).collect();
     let navigator = use_navigator().unwrap();
     let to_test = Callback::from(move |_| navigator.push(&Route::Room));
-    let server_map = get_open_rooms();
-    
+
     html! {
         <>
             <div class="container title">
@@ -58,7 +49,7 @@ fn home() -> Html {
             <div class="server-list">
                 <h1>{ " Server List "}</h1>
                 <h2>{ "| under construction |" }</h2>
-                { for MessageBlocks }
+                <RoomBlock/>
             </div>
         </>
     }
@@ -73,6 +64,7 @@ fn app() -> Html {
         </BrowserRouter>
     }
 }
+
 #[function_component(Room)]
 fn room() -> Html {
 

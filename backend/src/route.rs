@@ -51,5 +51,5 @@ pub async fn start_connection(
 #[get("/rooms")]
 pub async fn parse_rooms(lobby: web::Data<Addr<Lobby>>) -> Json<String> {
     let resp = lobby.send(GetRoomsMessage).await.unwrap();
-    return Json(format!("Rooms - {:?}", resp).to_string());
+    return Json(format!("{:?}",resp));
 }

@@ -2,7 +2,7 @@ use yew::prelude::*;
 use web_sys::{ErrorEvent, MessageEvent, WebSocket};
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
-use web_sys::{EventTarget, HtmlInputElement, InputEvent};
+use web_sys::{EventTarget, HtmlInputElement, InputEvent, KeyboardEvent};
 
 pub struct WebSocketClient {
     messages: Vec<String>,
@@ -15,6 +15,7 @@ pub enum Msg{
     Send,
     MessageRecieved(String),
     Input(String),
+    NoOpp,
 }
 
 
@@ -58,6 +59,7 @@ impl Component for WebSocketClient {
             }
             Msg::MessageRecieved(incoming_msg) => self.messages.push(incoming_msg),
             Msg::Input(outgoing_msg) => self.input = outgoing_msg,
+            Msg::NoOpp => (),
         }
         true
     }
@@ -66,14 +68,14 @@ impl Component for WebSocketClient {
         let link = ctx.link();
         let on_input = link.callback(|e: Event| Msg::Input(e.target().and_then(|t| t.dyn_into::<HtmlInputElement>().ok()).unwrap().value()));
         let on_click = {link.callback(|_| Msg::Send)};
-        /*let on_change = Callback::from(move |e: Event| {
-            let target: EventTarget = e
-            .target()
-            .expect("Event should have a target when dispatched");
-        input_value_handle.set(target.unchecked_into::<HtmlInputElement>().value());
-        let input_value = input_value_handle.to_string();
-        });*/
 
+        /* let on_keydown = {link.callback(|e: KeyboardEvent| {
+            if e.key_code() == 13 {
+               return Msg::Send;
+            }
+            return Msg::NoOpp;
+        })}; */
+        
         html!{
             <>
                 <div>
@@ -81,9 +83,11 @@ impl Component for WebSocketClient {
                 </div>
                 <div>
                     <h1> { "Input!!!!" } </h1>
-                    <input onchange={ on_input }
-                    type="text"
-                    value={self.input.clone()}
+                    <input 
+                        onchange={ on_input }
+                        //onkeydown={ on_keydown }
+                        type="text"
+                        value={self.input.clone()}
                     />
                     <button onclick={ on_click }> {"Send"} </button>
                 </div>
