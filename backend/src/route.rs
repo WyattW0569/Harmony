@@ -16,6 +16,7 @@ use actix_web::{
     HttpRequest,  
     web::Json,
     web,
+    Responder,
 };
 use actix_web_actors::ws;
 use uuid::Uuid;
@@ -49,7 +50,12 @@ pub async fn start_connection(
 }
 
 #[get("/rooms")]
-pub async fn parse_rooms(lobby: web::Data<Addr<Lobby>>) -> Json<String> {
+pub async fn parse_rooms(lobby: web::Data<Addr<Lobby>>) -> impl Responder {
     let resp = lobby.send(GetRoomsMessage).await.unwrap();
-    return Json(format!("{:?}",resp));
+    match resp {
+        Ok(rooms) => rooms,
+        Err(_) => HtmlResponse::Ok().body("test"),
+    }
+
+    /* let converted_resp = rooms.into_iter().map(|room_id, population_set|) */
 }

@@ -66,15 +66,20 @@ impl Component for WebSocketClient {
 
     fn view(&self, ctx: &Context<Self>) -> Html{
         let link = ctx.link();
-        let on_input = link.callback(|e: Event| Msg::Input(e.target().and_then(|t| t.dyn_into::<HtmlInputElement>().ok()).unwrap().value()));
-        let on_click = {link.callback(|_| Msg::Send)};
+
+        /* let input {
+
+        }; */
+
+        let on_input = link.callback(|e: InputEvent| Msg::Input(e.target().and_then(|t| t.dyn_into::<HtmlInputElement>().ok()).unwrap().value()));
+        let on_click = link.callback(|_| Msg::Send);
 
         /* let on_keydown = {link.callback(|e: KeyboardEvent| {
             if e.key_code() == 13 {
                return Msg::Send;
             }
             return Msg::NoOpp;
-        })}; */
+        }); */
         
         html!{
             <>
@@ -84,7 +89,7 @@ impl Component for WebSocketClient {
                 <div>
                     <h1> { "Input!!!!" } </h1>
                     <input 
-                        onchange={ on_input }
+                        oninput={ on_input }
                         //onkeydown={ on_keydown }
                         type="text"
                         value={self.input.clone()}
