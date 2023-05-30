@@ -1,4 +1,4 @@
-.container {
+.containerours {
     width: 100%;
     height: 100%;
     padding: 30px;
@@ -11,12 +11,12 @@
 
 }
 
-.container p {
+.containerours p {
     text-align: center;
     font-size: 130px;
 }
 
-.container button {
+.containerours button {
     font-size: 50px;
     font-family: "Comic Sans MS";
     background: black;
@@ -25,7 +25,7 @@
     border: none;
 }
 
-.container button:hover {
+.containerours button:hover {
     background: rgb(36, 36, 36);
     cursor: pointer;
 }
@@ -38,11 +38,10 @@
     text-align: center;
 }
 
-/* not applying */
 .websocketcomponents {
-    justify-content: center;
-    position: relative;
-    margin-bottom: 30px;
+    position: fixed;
+    bottom: 1%;
+    left: 45%;
 }
 
 html{
@@ -50,8 +49,8 @@ html{
 }
 
 body{
-    background-image: url("./static/background.png");
-    background-color: blueviolet;
+    background: rgb(255,195,246);
+    background: linear-gradient(90deg, rgba(255,195,246,1) 0%, rgba(212,175,246,1) 50%, rgba(255,195,246,1) 100%);
 }
 
 .centre {

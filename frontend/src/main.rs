@@ -35,7 +35,7 @@ enum Route {
 //
 //  **
 
-static HOST_IP: &str = "10.57.17.0";
+static HOST_IP: &str = "10.57.16.255";
 
 #[function_component(Home)]
 fn home() -> Html {
@@ -45,9 +45,9 @@ fn home() -> Html {
 
     html! {
         <>
-            <div class="container title">
+            <div class="containerours title">
                 <img src="static/logo.png" alt="Harmony" class="centre"/> 
-                <div class="container">
+                <div class="containerours">
                     <button onclick={to_test}>{ "Create Room" }</button>
                 </div>
             </div>
@@ -82,10 +82,10 @@ fn room(props: &Props) -> Html {
     
     html! {
         <>  
-            <div class="container title">
-                <img src="static/logo.png" alt="Harmony" class="centre"/>
+            <div class="containerours title">
+                <img src="../static/logo.png" alt="Harmony" class="centre"/>
             </div>
-            <h1>{ format!("Connected to -  {}",url_id) }</h1>
+            <h1 class="display-3">{ format!("Connected to -  {}",url_id) }</h1>
             <div class="websocketcomponents">
                 <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)}/>
             </div>

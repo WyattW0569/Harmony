@@ -83,7 +83,7 @@ impl Component for WebSocketClient {
             });
 
             html! {
-                <input 
+                <input class = "container"
                     oninput={ on_input }
                     onkeydown={ on_keydown }
                     type="text"
