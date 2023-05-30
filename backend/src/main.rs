@@ -2,6 +2,7 @@ use actix::{Actor, Addr};
 use actix_files::Files;
 use actix_web::{App,HttpServer, web::scope, web};
 use once_cell::sync::Lazy;
+use actix_cors::Cors;
 
 mod route;
 mod lobby;
@@ -26,7 +27,13 @@ async fn main() -> std::io::Result<()>{
     });
 
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allowed_methods(vec!["GET"])
+            .allowed_methods(vec!["Content-Type"]);
+
         App::new()
+            .wrap(cors)
             .service(
                 scope("/api")
                     .service(tom)

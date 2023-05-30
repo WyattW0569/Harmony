@@ -1,2 +1,2 @@
 [[proxy]]
-backend = "http://localhost:80/api"
+backend = "http://10.57.17.0:80/api"

@@ -38,6 +38,13 @@
     text-align: center;
 }
 
+/* not applying */
+.websocketcomponents {
+    justify-content: center;
+    position: relative;
+    margin-bottom: 30px;
+}
+
 html{
     font-family: "Comic Sans MS";
 }

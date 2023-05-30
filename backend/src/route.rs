@@ -51,11 +51,25 @@ pub async fn start_connection(
 
 #[get("/rooms")]
 pub async fn parse_rooms(lobby: web::Data<Addr<Lobby>>) -> impl Responder {
-    let resp = lobby.send(GetRoomsMessage).await.unwrap();
-    match resp {
+    let resp = lobby.send(GetRoomsMessage).await;
+    let rooms = match resp {
         Ok(rooms) => rooms,
-        Err(_) => HtmlResponse::Ok().body("test"),
-    }
+        Err(_) => {
+            return HttpResponse::InternalServerError()
+            .body("Failed to retrieve rooms");
+        }
+    };
 
-    /* let converted_resp = rooms.into_iter().map(|room_id, population_set|) */
+    let converted_rooms: HashMap<String, HashSet<String>> = rooms
+        .into_iter()
+        .map(|(room_id, population_set)| {
+            let converted_pop: HashSet<String> = population_set
+                .into_iter()
+                .map(|user_id| user_id.to_string())
+                .collect();
+                (room_id.to_string(), converted_pop)
+        })
+        .collect();
+    
+    HttpResponse::Ok().json(converted_rooms)
 }
