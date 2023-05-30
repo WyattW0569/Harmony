@@ -9,7 +9,7 @@ use std::collections::{HashMap, HashSet};
 mod components;
 
 use components::room::{
-    RoomBlock,
+    RoomsListBlock,
 };
 
 use components::websocket::{
@@ -27,20 +27,21 @@ enum Route {
     NotFound,
 }
 
-// Ip of Host Computer
-static HOST_IP: &str = "10.57.17.0";
+//  **
+//  The following must be set to Local IP of Host Computer
+//    -  frontend/src/main.rs HOST_IP 
+//    -  frontend/trunk.toml [[proxy]]
+//    -  frontend/src/components/room.rs get_open_rooms() 
+//
+//  **
 
-async fn connect_to_lobby(id: Uuid) {
-    let url = format!("http://localhost/api/{}", id.to_string());
-    return Request::get(&url).send().await.unwrap().json().await.unwrap();
-}
+static HOST_IP: &str = "10.57.17.0";
 
 #[function_component(Home)]
 fn home() -> Html {
     //let MessageBlocks: Vec<_> = (0..3).map(|_| html_nested!{<MessageBlock/>}).collect();
     let navigator = use_navigator().unwrap();
-    let testing_url_string = String::from("Testing");
-    let to_test = Callback::from(move |_| navigator.push(&Route::Room{ id: "test".to_string()}));
+    let to_test = Callback::from(move |_| navigator.push(&Route::Room{ id: Uuid::new_v4().to_string()}));
 
     html! {
         <>
@@ -53,7 +54,7 @@ fn home() -> Html {
             <div class="server-list">
                 <h1>{ " Server List "}</h1>
                 <h2>{ "| under construction |" }</h2>
-                <RoomBlock/>
+                <RoomsListBlock/>
             </div>
         </>
     }
@@ -78,14 +79,16 @@ pub struct Props {
 #[function_component(Room)]
 fn room(props: &Props) -> Html {
     let url_id = props.url_id.clone();
-
-    let id = Uuid::new_v4();
-    connect_to_lobby(id);
     
     html! {
-        <>
-            <h1>{ format!("test on -  {}",id) }</h1>
-            <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), id)}/>
+        <>  
+            <div class="container title">
+                <img src="static/logo.png" alt="Harmony" class="centre"/>
+            </div>
+            <h1>{ format!("Connected to -  {}",url_id) }</h1>
+            <div class="websocketcomponents">
+                <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)}/>
+            </div>
         </>
     }
 }
@@ -94,7 +97,7 @@ fn room(props: &Props) -> Html {
 fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html! {<Home/>},
-        Route::Room { id } => html! {<Room url_id={"test".to_string()}/>},
+        Route::Room { id } => html! {<Room url_id={id}/>},
         Route::NotFound => html! {<h1>{ "404 lol" }</h1>},
     }
 }
