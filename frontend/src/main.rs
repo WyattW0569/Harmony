@@ -47,14 +47,27 @@ fn home() -> Html {
         <>
             <div class="containerours title">
                 <img src="static/logo.png" alt="Harmony" class="centre"/> 
-                <div class="containerours">
-                    <button onclick={to_test}>{ "Create Room" }</button>
-                </div>
             </div>
-            <div class="server-list">
-                <h1>{ " Server List "}</h1>
-                <h2>{ "| under construction |" }</h2>
-                <RoomsListBlock/>
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="border border-5 border-white rounded p-3">
+                            <div class="d-grid">
+                                <button class="btn btn-dark" onclick={to_test}>{ "Create Room" }</button>
+                                <img class ="img-responsive" width ="100%" src="static/funny-cat-3.jpg" alt="funnycat"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="border border-5 border-white rounded p-3">
+                            <div class="server-list">
+                                <h1>{ " Server List "}</h1>
+                                <h2>{ "| under construction |" }</h2>
+                                <RoomsListBlock/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     }
@@ -85,9 +98,22 @@ fn room(props: &Props) -> Html {
             <div class="containerours title">
                 <img src="../static/logo.png" alt="Harmony" class="centre"/>
             </div>
-            <h1 class="display-3">{ format!("Connected to -  {}",url_id) }</h1>
-            <div class="websocketcomponents">
-                <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)}/>
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="border border-5 border-white rounded p-3">
+                            { "test" }
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="border border-5 border-white rounded p-3">
+                            <h1 class="display-1">{ format!("Connected to -  {}",url_id) }</h1>
+                            <div>
+                                <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     }
