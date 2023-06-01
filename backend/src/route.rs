@@ -5,7 +5,6 @@ use crate::messages::GetRoomsMessage;
 use std::collections::{HashMap, HashSet};
 
 use actix::Addr;
-use actix_files::Files;
 use actix_web::{
     get,
     web::Data,

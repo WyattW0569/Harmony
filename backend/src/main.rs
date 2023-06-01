@@ -1,5 +1,4 @@
 use actix::{Actor, Addr};
-use actix_files::Files;
 use actix_web::{App,HttpServer, web::scope, web};
 use once_cell::sync::Lazy;
 use actix_cors::Cors;
