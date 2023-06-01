@@ -61,8 +61,7 @@ fn home() -> Html {
                     <div class="col-8">
                         <div class="border border-5 border-white rounded p-3">
                             <div class="server-list">
-                                <h1>{ " Server List "}</h1>
-                                <h2>{ "| under construction |" }</h2>
+                                <h1 class="display-3">{ " Server List "}</h1>
                                 <RoomsListBlock/>
                             </div>
                         </div>
@@ -107,7 +106,7 @@ fn room(props: &Props) -> Html {
                     </div>
                     <div class="col-8">
                         <div class="border border-5 border-white rounded p-3">
-                            <h1 class="display-1">{ format!("Connected to -  {}",url_id) }</h1>
+                            <h1 class="display-5">{ format!("Connected to -  {}",url_id) }</h1>
                             <div>
                                 <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)}/>
                             </div>

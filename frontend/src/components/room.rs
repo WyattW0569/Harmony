@@ -39,15 +39,15 @@ impl Component for RoomBlock {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let style = "background-color:violet; padding:20px;";
+        let style = "padding:20px;";
         let link = ctx.link();
         let navigator = link.navigator().unwrap();
         let url_id = self.id.clone();
         let onclick = Callback::from(move |_| navigator.push(&Route::Room { id: url_id.to_owned() }));
 
         html! {
-            <div class="container" style={style}>
-                <h1> { self.id.clone() } </h1>
+            <div class="container border border-5 border-white rounded-pill gy-3" style={style}>
+                <h1 class="display-6"> { self.id.clone() } </h1>
                 <h2> { self.pop.clone() } </h2>
                 <button {onclick}> {"Join!"} </button>
             </div>

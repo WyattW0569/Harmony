@@ -95,11 +95,13 @@ impl Component for WebSocketClient {
         
         html!{
             <>
-                <div>
-                    { for self.messages.iter().map(|message| html_nested! {<p>{ message }</p>}) }
-                </div>
-                <div>
-                    {input_component}
+                <div style="height: 600px;" class="overflow-hidden">
+                    <div style="height: 550px;" class="scrollable overflow-auto" id="text-box">
+                        { for self.messages.iter().map(|message| html_nested! {<p>{ message }</p>}) }
+                    </div>
+                    <div class="align-items-end">
+                        {input_component}
+                    </div>
                 </div>
             </>
         }

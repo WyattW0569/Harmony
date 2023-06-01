@@ -62,3 +62,14 @@ h1{
 p{
     color: white;
 }
+
+#text-box::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+
+#text-box::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 6px;
+}
