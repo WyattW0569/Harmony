@@ -32,10 +32,6 @@ impl Lobby {
         }
 
     }
-
-    pub fn get_open_rooms(&self) /*-> HashMap<Uuid, HashSet<Uuid>>*/{
-        println!("{:?}",self.rooms);
-    }
 }
 
 impl Actor for Lobby {
@@ -103,15 +99,48 @@ impl Handler<ClientActorMessage> for Lobby {
 
     fn handle(&mut self, msg: ClientActorMessage, _: &mut Context<Self>) -> Self::Result {
         // checking if message start with \w to whisper to specific client with Uuid
-        // No Error Handling yet, If the uuid after \w is invalid it will panic, and just fail silently if there is no uuid after \w
-        if msg.msg.starts_with("\\w") {
-            if let Some(id_to) = msg.msg.split(' ').collect::<Vec<&str>>().get(1) {
-                self.send_message(&msg.msg, &Uuid::parse_str(id_to).unwrap());
-            } 
-        } else {
+        // in the future see it this works with a match statement
+        match msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check for Command") {
+            whisper if whisper.starts_with("!w") => {
+                if let Some(id_to) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
+                    if let Ok(uuid) = &Uuid::parse_str(id_to) {
+                        self.send_message(&msg.msg, uuid);
+                    } else {
+                        println!("Invalid Whisper");
+                    }
+                }
+            },
+            help if help.starts_with("!help") => {
+                println!("System Message: \n'!w [id] [message]' to whisper\n'!help' for help")
+            },
+            nickname if nickname.starts_with("!nick") => {
+                if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
+                    println!("Set NickName to - {}", nick);
+                }
+            },
+            _ => self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(&msg.msg, client)),
+        }
+
+        /*if msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check message if Whisper").starts_with("!w") {
+            // add a check for invalid ID's
+            if let Some(id_to) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
+                if let Ok(uuid) = &Uuid::parse_str(id_to) {
+                    self.send_message(&msg.msg, uuid);
+                } else {
+                    println!("Invalid Whisper");
+                }
+            }
+        } else if msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check message if Help").starts_with("!help") {
+            println!("System Message: \n'!w [id] [message]' to whisper\n'!help' for help")
+        
+        } else if msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check message if NickName").starts_with("!nick") {
+            if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
+                println!("Set NickName to - {}", nick)
+            }
+        }else {
             self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(&msg.msg, client));
 
-        }
+        }*/
     }
 }
 

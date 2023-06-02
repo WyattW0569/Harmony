@@ -5,6 +5,7 @@ use yew_stdweb::format::Json;
 use reqwasm::http::Request;
 use uuid::Uuid;
 use std::collections::{HashMap, HashSet};
+use rand::prelude::*;
 
 mod components;
 
@@ -27,6 +28,8 @@ enum Route {
     NotFound,
 }
 
+// whisper functionality is going to need to be completely reworked with custom names
+
 //  **
 //  The following must be set to Local IP of Host Computer
 //    -  frontend/src/main.rs HOST_IP 
@@ -35,13 +38,13 @@ enum Route {
 //
 //  **
 
-static HOST_IP: &str = "10.57.16.255";
+static HOST_IP: &str = "10.57.17.0";
 
 #[function_component(Home)]
 fn home() -> Html {
     //let MessageBlocks: Vec<_> = (0..3).map(|_| html_nested!{<MessageBlock/>}).collect();
     let navigator = use_navigator().unwrap();
-    let to_test = Callback::from(move |_| navigator.push(&Route::Room{ id: Uuid::new_v4().to_string()}));
+    let to_room = Callback::from(move |_| navigator.push(&Route::Room{ id: Uuid::new_v4().to_string()}));
 
     html! {
         <>
@@ -91,11 +94,17 @@ pub struct Props {
 #[function_component(Room)]
 fn room(props: &Props) -> Html {
     let url_id = props.url_id.clone();
+    let navigator = use_navigator().unwrap();
+    // using .replace() instead of .push() because clicking home twice if user is already on home page will panic!
+    let to_home = Callback::from(move |_| navigator.push(&Route::Home));
+    let nick_name: String = String::from(format!("Guest{}",rand::thread_rng().gen_range(0..100)));
     
     html! {
         <>  
             <div class="containerours title">
-                <img src="../static/logo.png" alt="Harmony" class="centre"/>
+                <button onclick={to_home} type="submit" style={"background-color: transparent;"}>
+                    <img src="../static/logo.png" alt="Harmony" class="centre"/>
+                </button>
             </div>
             <div class="container-xxl">
                 <div class="row">

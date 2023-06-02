@@ -3,12 +3,15 @@ use web_sys::{ErrorEvent, MessageEvent, WebSocket};
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
 use web_sys::{EventTarget, HtmlInputElement, InputEvent, KeyboardEvent};
+use rand::seq::SliceRandom;
+
 
 pub struct WebSocketClient {
     messages: Vec<String>,
     socket: Option<WebSocket>,
     input: String,
     on_message_callback: Closure<dyn FnMut(MessageEvent)>,
+    nick: String,
 }
 
 pub enum Msg{
@@ -22,6 +25,7 @@ pub enum Msg{
 #[derive(Properties, Clone, PartialEq)]
 pub struct Props{
     pub url: String,
+    pub nick: String,
 } 
 
 impl Component for WebSocketClient {
@@ -41,19 +45,22 @@ impl Component for WebSocketClient {
         };
         websocket.set_onmessage(Some(on_message_callback.as_ref().unchecked_ref()));
 
+        let nick = props.nick;
+
         WebSocketClient {
             messages: vec![],
             socket: Some(websocket),
             on_message_callback,
             input: String::new(),
+            nick,
         }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg{
+        match msg {
             Msg::Send => {
                 if let Some(ref mut websocket) = self.socket {
-                    websocket.send_with_str(&self.input).unwrap();
+                    websocket.send_with_str(format!("{} | {}",&self.nick, &self.input).as_str()).unwrap();
                     self.input = String::new();
                 }
             }
@@ -66,6 +73,7 @@ impl Component for WebSocketClient {
 
     fn view(&self, ctx: &Context<Self>) -> Html{
         let link = ctx.link();
+        // let props = ctx.props().clone(); What if the color was the first 6 digits of ID
 
         let input_component  = {
             let on_input = link.callback(|e: InputEvent| {
@@ -76,7 +84,7 @@ impl Component for WebSocketClient {
 
 
             let on_keydown = link.callback(|e: KeyboardEvent| {
-                if e.key_code() == 13 {
+                if e.key_code() == 13{
                    return Msg::Send;
                 }
                 return Msg::NoOpp;
@@ -92,6 +100,7 @@ impl Component for WebSocketClient {
             }
         };
 
+        //let colors = vec!["red", "blue", "yellow", "grey", "violet", "black", "green"];
         
         html!{
             <>
