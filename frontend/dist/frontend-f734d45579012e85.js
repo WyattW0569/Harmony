@@ -986,11 +986,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-<<<<<<<< HEAD:frontend/dist/frontend-4365be84128e81be.js
-        input = new URL('frontend-4365be84128e81be_bg.wasm', import.meta.url);
-========
-        input = new URL('frontend-4659dd9bfe408140_bg.wasm', import.meta.url);
->>>>>>>> 16cbad9349d117c78344a593e8b6f911c0d90a58:frontend/dist/frontend-4659dd9bfe408140.js
+        input = new URL('frontend-f734d45579012e85_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
