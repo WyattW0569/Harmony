@@ -1,0 +1,75 @@
+.containerours {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 5px;
+
+}
+
+.containerours p {
+    text-align: center;
+    font-size: 130px;
+}
+
+.containerours button {
+    font-size: 50px;
+    font-family: "Comic Sans MS";
+    background: black;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.containerours button:hover {
+    background: rgb(36, 36, 36);
+    cursor: pointer;
+}
+
+.title {
+    text-align: center;
+}
+
+.server-list {
+    text-align: center;
+}
+
+
+html{
+    font-family: "Comic Sans MS";
+}
+
+body{
+    background: rgb(255,195,246);
+    background: linear-gradient(90deg, rgba(255,195,246,1) 0%, rgba(212,175,246,1) 50%, rgba(255,195,246,1) 100%);
+}
+
+.centre {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+h1{
+    color: white;
+}
+
+p{
+    color: white;
+}
+
+#text-box::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+
+#text-box::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 6px;
+}

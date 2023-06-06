@@ -38,7 +38,7 @@ enum Route {
 //
 //  **
 
-static HOST_IP: &str = "10.57.16.255";
+static HOST_IP: &str = "10.57.17.0";
 
 #[function_component(Home)]
 fn home() -> Html {
@@ -98,6 +98,8 @@ fn room(props: &Props) -> Html {
     // using .replace() instead of .push() because clicking home twice if user is already on home page will panic!
     let to_home = Callback::from(move |_| navigator.push(&Route::Home));
     let nick_name: String = String::from(format!("Guest{}",rand::thread_rng().gen_range(0..100)));
+
+    
     
     html! {
         <>  

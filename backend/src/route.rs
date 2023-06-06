@@ -1,6 +1,6 @@
 use crate::ws::WebSocketConnection;
 use crate::lobby::Lobby;
-use crate::messages::GetRoomsMessage;
+use crate::messages::{GetRoomsMessage, GetNicksMessage};
 
 use std::collections::{HashMap, HashSet};
 
@@ -71,4 +71,18 @@ pub async fn parse_rooms(lobby: web::Data<Addr<Lobby>>) -> impl Responder {
         .collect();
     
     HttpResponse::Ok().json(converted_rooms)
+}
+
+#[get("/nicks")]
+pub async fn parse_nicks(lobby: web::Data<Addr<Lobby>>) -> impl Responder {
+    let resp = lobby.send(GetNicksMessage).await;
+    let nick_names = match resp {
+        Ok(nicks) => nicks,
+        Err(_) => {
+            return HttpResponse::InternalServerError()
+            .body("Failed to retrieve rooms");
+        }
+    };
+
+    HttpResponse::Ok().json(nick_names)
 }

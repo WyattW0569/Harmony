@@ -36,3 +36,7 @@ pub struct ClientActorMessage {
 #[derive(Message)]
 #[rtype(result = "HashMap<Uuid, HashSet<Uuid>>")] // try hashmap
 pub struct GetRoomsMessage;
+
+#[derive(Message)]
+#[rtype(result = "HashMap<String, String>")] // try hashmap
+pub struct GetNicksMessage;

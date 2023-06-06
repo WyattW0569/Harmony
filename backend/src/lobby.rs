@@ -1,4 +1,4 @@
-use crate::messages::{Connect, Disconnect, ClientActorMessage, WsMessage, GetRoomsMessage};
+use crate::messages::{Connect, Disconnect, ClientActorMessage, WsMessage, GetRoomsMessage, GetNicksMessage};
 use actix::prelude::{Actor, Context, Handler, Recipient, MessageResult};
 use std::collections::{HashMap, HashSet};
 use uuid::Uuid;
@@ -10,6 +10,7 @@ type Socket = Recipient<WsMessage>;
 pub struct Lobby {
     sessions: HashMap<Uuid, Socket>, // self id
     rooms: HashMap<Uuid, HashSet<Uuid>>, // list of users in a room
+    names: HashMap<String, String>
 }
 
 impl Default for Lobby{
@@ -17,6 +18,7 @@ impl Default for Lobby{
         Lobby {
             sessions: HashMap::new(),
             rooms: HashMap::new(),
+            names: HashMap::new(),
         }
     }
 }
@@ -30,7 +32,6 @@ impl Lobby {
         } else {
             println!("Can't find user id, unable to send message")
         }
-
     }
 }
 
@@ -111,36 +112,18 @@ impl Handler<ClientActorMessage> for Lobby {
                 }
             },
             help if help.starts_with("!help") => {
-                println!("System Message: \n'!w [id] [message]' to whisper\n'!help' for help")
+                self.send_message("System Message: '!w [id] [message]' to whisper '!help' for help", &msg.id.clone())
             },
             nickname if nickname.starts_with("!nick") => {
                 if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
-                    println!("Set NickName to - {}", nick);
+                    self.names.insert(
+                        msg.id.to_string(),
+                        nick.to_string(),
+                    );
                 }
             },
             _ => self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(&msg.msg, client)),
         }
-
-        /*if msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check message if Whisper").starts_with("!w") {
-            // add a check for invalid ID's
-            if let Some(id_to) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
-                if let Ok(uuid) = &Uuid::parse_str(id_to) {
-                    self.send_message(&msg.msg, uuid);
-                } else {
-                    println!("Invalid Whisper");
-                }
-            }
-        } else if msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check message if Help").starts_with("!help") {
-            println!("System Message: \n'!w [id] [message]' to whisper\n'!help' for help")
-        
-        } else if msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check message if NickName").starts_with("!nick") {
-            if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
-                println!("Set NickName to - {}", nick)
-            }
-        }else {
-            self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(&msg.msg, client));
-
-        }*/
     }
 }
 
@@ -150,6 +133,16 @@ impl Handler<GetRoomsMessage> for Lobby {
     fn handle(&mut self, _: GetRoomsMessage, _:&mut Context<Self>) -> Self::Result {
         
         return MessageResult(self.rooms.clone());
+        
+    }
+}
+
+impl Handler<GetNicksMessage> for Lobby {
+    type Result = MessageResult<GetNicksMessage>;
+
+    fn handle(&mut self, _: GetNicksMessage, _:&mut Context<Self>) -> Self::Result {
+        
+        return MessageResult(self.names.clone());
         
     }
 }

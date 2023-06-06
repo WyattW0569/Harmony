@@ -13,6 +13,7 @@ use route::{
     tom,
     start_connection,
     parse_rooms,
+    parse_nicks,
 };
 
 //.service(Files::new("/", "././frontend/dist/").index_file("index.html"))
@@ -37,6 +38,7 @@ async fn main() -> std::io::Result<()>{
                 scope("/api")
                     .service(tom)
                     .service(parse_rooms)
+                    .service(parse_nicks)
                     .service(start_connection)
             )
             .app_data(web::Data::new(LOBBY.clone()))
