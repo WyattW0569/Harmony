@@ -13,6 +13,10 @@ use components::room::{
     RoomsListBlock,
 };
 
+use components::names::{
+    NickName,
+};
+
 use components::websocket::{
     WebSocketClient,
 };
@@ -37,6 +41,8 @@ enum Route {
 //    -  frontend/src/components/room.rs get_open_rooms() 
 //
 //  **
+
+//https://lib.rs/crates/yew-api-hook
 
 static HOST_IP: &str = "10.57.17.0";
 
@@ -112,7 +118,7 @@ fn room(props: &Props) -> Html {
                 <div class="row">
                     <div class="col-4">
                         <div class="border border-5 border-white rounded p-3">
-                            { "test" }
+                            <NickName/>
                         </div>
                     </div>
                     <div class="col-8">

@@ -60,6 +60,7 @@ impl Handler<Disconnect> for Lobby {
                     // only one in the lobby, remove it entirely
                     self.rooms.remove(&msg.room_id);
                 }
+                self.names.remove(&msg.id.to_string());
             }
         }
     }

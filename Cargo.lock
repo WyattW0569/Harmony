@@ -1642,6 +1642,7 @@ version = "0.1.0"
 dependencies = [
  "getrandom 0.2.9",
  "gloo",
+ "gloo-console",
  "once_cell",
  "rand 0.8.5",
  "reqwasm",
