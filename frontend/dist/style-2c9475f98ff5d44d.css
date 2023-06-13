@@ -59,10 +59,6 @@ h1{
     color: white;
 }
 
-p{
-    color: white;
-}
-
 #text-box::-webkit-scrollbar {
     width: 6px;
     background-color: transparent;

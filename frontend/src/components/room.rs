@@ -49,7 +49,7 @@ impl Component for RoomBlock {
             <div class="container border border-5 border-white rounded-pill gy-3" style={style}>
                 <h1 class="display-6"> { self.id.clone() } </h1>
                 <h2> { self.pop.clone() } </h2>
-                <button {onclick}> {"Join!"} </button>
+                <button class="btn btn-dark" {onclick}> {"Join!"} </button>
             </div>
         }
     }

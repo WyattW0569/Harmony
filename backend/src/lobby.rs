@@ -90,6 +90,11 @@ impl Handler<Connect> for Lobby {
             msg.addr,
         );
 
+        self.names.insert( 
+            msg.self_id.to_string(),
+            "Guest".to_string(),
+        );
+
         // send self your new uuid
         self.send_message(&format!("your id is {}", msg.self_id), &msg.self_id);
     }
@@ -102,28 +107,32 @@ impl Handler<ClientActorMessage> for Lobby {
     fn handle(&mut self, msg: ClientActorMessage, _: &mut Context<Self>) -> Self::Result {
         // checking if message start with \w to whisper to specific client with Uuid
         // in the future see it this works with a match statement
-        match msg.msg.split_whitespace().collect::<Vec<&str>>().get(2).expect("Check for Command") {
-            whisper if whisper.starts_with("!w") => {
-                if let Some(id_to) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
-                    if let Ok(uuid) = &Uuid::parse_str(id_to) {
-                        self.send_message(&msg.msg, uuid);
-                    } else {
-                        println!("Invalid Whisper");
+        if let Some(message) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(0) {
+            match message {
+                whisper if whisper.starts_with("!w") => {
+                    if let Some(id_to) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(1) {
+                        if let Ok(uuid) = &Uuid::parse_str(id_to) {
+                            self.send_message(&msg.msg, uuid);
+                        } else {
+                            println!("Invalid Whisper");
+                        }
                     }
-                }
-            },
-            help if help.starts_with("!help") => {
-                self.send_message("System Message: '!w [id] [message]' to whisper '!help' for help", &msg.id.clone())
-            },
-            nickname if nickname.starts_with("!nick") => {
-                if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(3) {
-                    self.names.insert(
-                        msg.id.to_string(),
-                        nick.to_string(),
-                    );
-                }
-            },
-            _ => self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(&msg.msg, client)),
+                },
+                help if help.starts_with("!help") => {
+                    self.send_message("Harmony | '!w [id] [message]' to whisper '!help' for help", &msg.id.clone())
+                },
+                nickname if nickname.starts_with("!nick") => {
+                    if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(1) {
+                        self.names.insert(
+                            msg.id.to_string(),
+                            nick.to_string(),
+                        );
+                    }
+                },
+                _ => self.rooms.get(&msg.room_id).unwrap().iter().for_each(|client| self.send_message(format!("{} | {}",self.names.get(&msg.id.to_string()).unwrap(), &msg.msg).as_str(), client)),
+            }
+        } else {
+            println!("Message is blank");
         }
     }
 }

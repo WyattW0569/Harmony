@@ -5,9 +5,10 @@ use actix_cors::Cors;
 
 mod route;
 mod lobby;
-use lobby::Lobby;
 mod ws;
 mod messages;
+
+use lobby::Lobby;
 
 use route::{
     tom,

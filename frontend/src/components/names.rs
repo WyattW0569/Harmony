@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use rand::prelude::*;
 use reqwasm::http::Request;
-use std::collections::{HashMap};
+use std::collections::{HashMap, HashSet};
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -20,10 +20,17 @@ impl Component for NickName {
         let guest: String = String::from(format!("Guest{}",rand::thread_rng().gen_range(0..100)));
 
         let names: Rc<RefCell<HashMap<String, String>>> = Rc::new(RefCell::new(HashMap::new()));
+
         let names_clone = names.clone();
 
         link.send_future(async move {
-            let nick_name_map: HashMap<String, String> = Request::get("http://10.57.17.0/api/nicks").send().await.unwrap().json().await.unwrap();
+            let nick_name_map: HashMap<String, String> = Request::get("http://10.57.17.0/api/nicks")
+                .send()
+                .await
+                .unwrap()
+                .json()
+                .await
+                .unwrap();
 
             *names_clone.borrow_mut() = nick_name_map;
         });
@@ -34,11 +41,13 @@ impl Component for NickName {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let name = &self.names.borrow();
-        let names: Vec<_> = name.values().collect();
+        let props = ctx.props();
+        let name_map = &self.names.borrow();
+        
+
         
         html! {
-            <h1> { format!("{:?}", names)} </h1>
+            <h2> { format!("{:?}",name_map) } </h2>
         }
     }
 }

@@ -2,7 +2,7 @@ use yew::prelude::*;
 use web_sys::{ErrorEvent, MessageEvent, WebSocket};
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
-use web_sys::{EventTarget, HtmlInputElement, InputEvent, KeyboardEvent};
+use web_sys::{HtmlInputElement, InputEvent, KeyboardEvent};
 use rand::seq::SliceRandom;
 
 
@@ -60,7 +60,7 @@ impl Component for WebSocketClient {
         match msg {
             Msg::Send => {
                 if let Some(ref mut websocket) = self.socket {
-                    websocket.send_with_str(format!("{} | {}",&self.nick, &self.input).as_str()).unwrap();
+                    websocket.send_with_str(format!("{}",&self.input).as_str()).unwrap();
                     self.input = String::new();
                 }
             }
@@ -73,7 +73,7 @@ impl Component for WebSocketClient {
 
     fn view(&self, ctx: &Context<Self>) -> Html{
         let link = ctx.link();
-        // let props = ctx.props().clone(); What if the color was the first 6 digits of ID
+        let props = ctx.props();
 
         let input_component  = {
             let on_input = link.callback(|e: InputEvent| {
@@ -106,7 +106,11 @@ impl Component for WebSocketClient {
             <>
                 <div style="height: 600px;" class="overflow-hidden">
                     <div style="height: 550px;" class="scrollable overflow-auto" id="text-box">
-                        { for self.messages.iter().map(|message| html_nested! {<p>{ message }</p>}) }
+                        { for self.messages.iter().map(|message| html_nested! {
+                            <>
+                                <p class="container-sm bg-light rounded shadow-sm p-3 mb-1">{ message }</p>
+                            </>
+                        })}
                     </div>
                     <div class="align-items-end">
                         {input_component}

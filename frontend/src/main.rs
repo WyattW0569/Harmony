@@ -70,7 +70,7 @@ fn home() -> Html {
                     <div class="col-8">
                         <div class="border border-5 border-white rounded p-3">
                             <div class="server-list">
-                                <h1 class="display-3">{ " Server List "}</h1>
+                                <h1 class="display-3">{ "Server List"}</h1>
                                 <RoomsListBlock/>
                             </div>
                         </div>
@@ -117,13 +117,15 @@ fn room(props: &Props) -> Html {
             <div class="container-xxl">
                 <div class="row">
                     <div class="col-4">
-                        <div class="border border-5 border-white rounded p-3">
+                        <div class="border border-5 border-white rounded p-3 bg-light">
+                            <h2>{"Connected Users"}</h2>
                             <NickName/>
                         </div>
                     </div>
                     <div class="col-8">
-                        <div class="border border-5 border-white rounded p-3">
-                            <h1 class="display-5">{ format!("Connected to -  {}",url_id) }</h1>
+                        <div class="border border-5 border-white rounded p-3 bg-light">
+                            <h2 class="display-5">{ format!("Room") }</h2>
+                            <h2 class="display-6">{ format!("{}", url_id) }</h2>
                             <div>
                                 <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)} nick={nick_name}/>
                             </div>
