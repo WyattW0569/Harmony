@@ -1,11 +1,7 @@
 use yew::functional::*;
 use yew::prelude::*;
 use yew_router::prelude::*;
-use yew_stdweb::format::Json;
-use reqwasm::http::Request;
 use uuid::Uuid;
-use std::collections::{HashMap, HashSet};
-use rand::prelude::*;
 
 mod components;
 
@@ -33,7 +29,6 @@ enum Route {
 }
 
 // whisper functionality is going to need to be completely reworked with custom names
-
 //  **
 //  The following must be set to Local IP of Host Computer
 //    -  frontend/src/main.rs HOST_IP 
@@ -103,7 +98,7 @@ fn room(props: &Props) -> Html {
     let navigator = use_navigator().unwrap();
     // using .replace() instead of .push() because clicking home twice if user is already on home page will panic!
     let to_home = Callback::from(move |_| navigator.push(&Route::Home));
-    let nick_name: String = String::from(format!("Guest{}",rand::thread_rng().gen_range(0..100)));
+
 
     
     
@@ -127,7 +122,7 @@ fn room(props: &Props) -> Html {
                             <h2 class="display-5">{ format!("Room") }</h2>
                             <h2 class="display-6">{ format!("{}", url_id) }</h2>
                             <div>
-                                <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)} nick={nick_name}/>
+                                <WebSocketClient url={format!("ws://{}/api/{}",HOST_IP.clone(), url_id)}/>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use rand::prelude::*;
 use reqwasm::http::Request;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -38,6 +38,11 @@ impl Component for NickName {
         NickName {
             names,
         }
+    }
+
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        // possibly move future here, with refresh button ?
+        true
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {

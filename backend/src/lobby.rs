@@ -1,6 +1,7 @@
 use crate::messages::{Connect, Disconnect, ClientActorMessage, WsMessage, GetRoomsMessage, GetNicksMessage};
 use actix::prelude::{Actor, Context, Handler, Recipient, MessageResult};
 use std::collections::{HashMap, HashSet};
+use rand::prelude::*;
 use uuid::Uuid;
 
 // Lobby is an actor, but actor is just a struct
@@ -92,6 +93,7 @@ impl Handler<Connect> for Lobby {
 
         self.names.insert( 
             msg.self_id.to_string(),
+            //String::from(format!("Guest{}",rand::thread_rng().gen_range(0..100))),
             "Guest".to_string(),
         );
 

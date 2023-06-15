@@ -1,6 +1,5 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
-use uuid::Uuid;
 use reqwasm::http::Request;
 use std::rc::Rc;
 use std::cell::RefCell;
@@ -91,7 +90,7 @@ impl Component for RoomsListBlock {
         }
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         let rooms_borrowed = self.rooms.borrow();
         let population_borrowed = self.population.borrow();
 
