@@ -39,7 +39,7 @@ enum Route {
 
 //https://lib.rs/crates/yew-api-hook
 
-static HOST_IP: &str = "10.57.17.0";
+static HOST_IP: &str = "10.57.16.255";
 
 #[function_component(Home)]
 fn home() -> Html {

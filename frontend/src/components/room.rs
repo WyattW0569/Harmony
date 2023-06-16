@@ -9,7 +9,7 @@ use crate::Route;
 
 
 async fn get_open_rooms() -> HashMap<String, HashSet<String>> {
-    let url = "http://10.57.17.0/api/rooms";
+    let url = "http://10.57.16.255/api/rooms";
     let room_map = Request::get(url).send().await.unwrap().json().await.unwrap();
     room_map
 }
@@ -47,7 +47,16 @@ impl Component for RoomBlock {
         html! {
             <div class="container border border-5 border-white rounded-pill gy-3" style={style}>
                 <h1 class="display-6"> { self.id.clone() } </h1>
-                <h2> { self.pop.clone() } </h2>
+                <div class="container">
+                    <div class="row align-items-start">
+                        <div class="col">
+                            <img src="../static/user_icon.png" class="float-end" width="50" height="50"/>
+                        </div>
+                        <div class="col">
+                            <h2 class="float-start"> { self.pop.clone() } </h2>
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-dark" {onclick}> {"Join!"} </button>
             </div>
         }
