@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_e7b41217f3c0672b906012922193a6004a089f2e(Module, $0) { var r = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (r instanceof DOMException) && (r.name === "InvalidPointerId"); }
+export function __cargo_web_snippet_0b83d86725d72654471f0866cb37dae036eb3169(Module, $0, $1, $2) { $1 = Module.STDWEB_PRIVATE.to_js($1);$2 = Module.STDWEB_PRIVATE.to_js($2);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).isDefaultNamespace(($2));})()); }

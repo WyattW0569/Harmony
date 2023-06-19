@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_bc884dc9e84569dafebcfc7fcf757479cd7d5820(Module, $0) { var o = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (o instanceof Event && o.type === "pointerlockerror"); }
+export function __cargo_web_snippet_77921d78a03be540f77cff16979810c493eca4c1(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).parentNode;})()); }

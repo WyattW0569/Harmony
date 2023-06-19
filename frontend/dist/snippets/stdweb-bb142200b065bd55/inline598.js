@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_0f503de1d61309643e0e13a7871406891e3691c9(Module, $0) { Module.STDWEB_PRIVATE.from_js($0, (function(){return window;})()); }
+export function __cargo_web_snippet_bc78d803aa2360482fc7141bcce84bb1d1b3256a(Module, $0) { var o = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (o instanceof FormData); }

@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_6e1579eddd8c9edd21983655811a04a334c4995f(Module, $0, $1, $2, $3, $4) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);$2 = Module.STDWEB_PRIVATE.to_js($2);$3 = Module.STDWEB_PRIVATE.to_js($3);$4 = Module.STDWEB_PRIVATE.to_js($4);($0).quadraticCurveTo(($1),($2),($3),($4)); }
+export function __cargo_web_snippet_7f5757aca90a3aa6af9515d88e3e82a09d32a019(Module, $0, $1) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);($0).scrollLeft=($1); }

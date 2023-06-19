@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_14a74d73b9a7245d602e132379ac3f4c7d6e8f17(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).lineDashOffset;})()); }
+export function __cargo_web_snippet_4236861572d31efbe7251b06fcf945c56c65440d(Module, $0, $1) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);($0).setLineDash(($1)); }

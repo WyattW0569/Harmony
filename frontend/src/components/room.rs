@@ -7,9 +7,8 @@ use std::collections::{HashMap, HashSet};
 use crate::Route;
 
 
-
 async fn get_open_rooms() -> HashMap<String, HashSet<String>> {
-    let url = "http://10.57.16.255/api/rooms";
+    let url = "http://192.168.0.147/api/rooms";
     let room_map = Request::get(url).send().await.unwrap().json().await.unwrap();
     room_map
 }
@@ -38,27 +37,26 @@ impl Component for RoomBlock {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let style = "padding:20px;";
+        let style = "padding:20px; background-color: #D3D3D3;";
         let link = ctx.link();
         let navigator = link.navigator().unwrap();
         let url_id = self.id.clone();
         let onclick = Callback::from(move |_| navigator.push(&Route::Room { id: url_id.to_owned() }));
+        let room_char = self.id.clone().chars().filter(|x| x.is_alphabetic()).next().unwrap().to_ascii_uppercase();
 
         html! {
-            <div class="container border border-5 border-white rounded-pill gy-3" style={style}>
-                <h1 class="display-6"> { self.id.clone() } </h1>
-                <div class="container">
-                    <div class="row align-items-start">
-                        <div class="col">
-                            <img src="../static/user_icon.png" class="float-end" width="50" height="50"/>
-                        </div>
-                        <div class="col">
-                            <h2 class="float-start"> { self.pop.clone() } </h2>
+            <button {onclick} class="pt-3" type="submit" style={"background-color: transparent; border-color: transparent;"}>
+                <div class="container border border-5 border-white rounded gy-2 row" style={style}>
+                    <div style={"display: flex; align-items: center;"}> 
+                        <img src="../static/room_logo.png" class="float-end" width="50" height="50"/>
+                        <h2 style={"white-space: nowrap; padding-right: 55px; padding-left: 45px;"}>{ format!("Chat Room {}", room_char) }</h2>
+                        <div class="h-75 border border-4" style={"display: flex; align-items: center; padding-left: 10px; padding-right: 20px; margin-right: 30px;"}>
+                            <img src="../static/user_icon.png" class="float-end pb-1" width="37" height="37"/>
+                            <p class="float-start fs-3 pt-2" style={"white-space: nowrap;"}> { format!("{} / 16", self.pop.clone()) } </p>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-dark" {onclick}> {"Join!"} </button>
-            </div>
+            </button>
         }
     }
 }

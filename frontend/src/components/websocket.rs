@@ -4,6 +4,7 @@ use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
 use std::collections::HashMap;
 use web_sys::{HtmlInputElement, InputEvent, KeyboardEvent};
+use web_sys::console;
 use rand::seq::SliceRandom;
 
 
@@ -94,23 +95,29 @@ impl Component for WebSocketClient {
             }
         };
 
-        let mut user_colors: HashMap<String, String> = HashMap::from([("Guest".to_string(), "green".to_string())]);
         let colors = vec!["red", "blue", "yellow", "grey", "violet", "green"];
 
-        self.messages.iter().skip(1).map(|message| {
-            user_colors.insert(
-                message.split("|").collect::<Vec<_>>().get(0).unwrap().to_string(),
-                colors.choose(&mut rand::thread_rng()).unwrap().to_string(),
-        )});
-        
         html!{
             <>
                 <div style="height: 600px;" class="overflow-hidden">
                     <div style="height: 550px;" class="scrollable overflow-auto" id="text-box">
                         { for self.messages.iter().skip(1).map(|message| html_nested! {
                             <>
-                                <p style={format!("color: {}", user_colors.get(message.split("|").next().map(str::trim).unwrap_or("")).unwrap() )}> { message.split("|").collect::<Vec<_>>().get(0) }</p>
-                                <p class="container-sm bg-light rounded shadow-sm p-3 mb-1">{ message }</p>
+                                <p class="container-sm bg-light rounded shadow-sm p-3 mb-1">
+                                    <span style={format!("color: {}", match message.split("|").next().map(str::trim).unwrap_or("Guest") {
+                                        "Guest" => "grey".to_string(),
+                                        short if short.len() <= 2 => "red".to_string(),
+                                        med if med.len() <= 4 => "green".to_string(),
+                                        long if long.len() <= 6 => "violet".to_string(),
+                                        _ => "blue".to_string(), 
+                                    })}> 
+                                        { message.split("|").collect::<Vec<_>>().get(0) }
+                                    </span>
+                                    <span>
+                                        {"•"}
+                                    </span>
+                                    { message.split("|").collect::<Vec<_>>().get(1) }
+                                </p>
                             </>
                         })}
                     </div>

@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_2ffc90e3b6984731d166d1cb70e5a8ea98ba7bd6(Module, $0) { var o = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (o instanceof GamepadEvent && o.type === "gamepadconnected"); }
+export function __cargo_web_snippet_d5faa29f24c51a262ff6df2ed588a3c09fe6ee06(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).startOffset;})()); }

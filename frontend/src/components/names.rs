@@ -24,7 +24,7 @@ impl Component for NickName {
         let names_clone = names.clone();
 
         link.send_future(async move {
-            let nick_name_map: HashMap<String, String> = Request::get("http://10.57.17.0/api/nicks")
+            let nick_name_map: HashMap<String, String> = Request::get("http://192.168.0.147/api/nicks")
                 .send()
                 .await
                 .unwrap()
@@ -48,11 +48,17 @@ impl Component for NickName {
     fn view(&self, ctx: &Context<Self>) -> Html {
         let props = ctx.props();
         let name_map = &self.names.borrow();
-        
+
+        let current_users_component: Vec<_> = name_map.iter().map(|(id, nick)| html!{
+            <>
+                <p>{id}</p>
+                <p>{nick}</p>
+            </>
+            }).collect();
 
         
         html! {
-            <h2> { format!("{:?}",name_map) } </h2>
+            {for current_users_component}
         }
     }
 }
