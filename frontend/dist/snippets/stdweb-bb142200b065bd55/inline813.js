@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_27e07246d888f7cb45238fd1d85da39b1df61bc7(Module, $0, $1) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);($0).setTime(($1)); }
+export function __cargo_web_snippet_f86d201ba1b29bb8432de3119ef6616b85b62132(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).getUTCFullYear();})()); }

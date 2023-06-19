@@ -8,7 +8,7 @@ use crate::Route;
 
 
 async fn get_open_rooms() -> HashMap<String, HashSet<String>> {
-    let url = "http://192.168.0.147/api/rooms";
+    let url = "http://10.57.17.0/api/rooms";
     let room_map = Request::get(url).send().await.unwrap().json().await.unwrap();
     room_map
 }

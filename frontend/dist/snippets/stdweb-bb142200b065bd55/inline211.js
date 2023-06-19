@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_7326ee86ac88c6072b7126311aacf503017bf3c9(Module, $0, $1) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);($0).isMap=($1); }
+export function __cargo_web_snippet_ba1ad6b17de70097509a3d8b9edcbe447958caaf(Module, $0) { var o = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (o instanceof MouseEvent && o.type === "auxclick"); }

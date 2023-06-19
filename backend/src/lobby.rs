@@ -121,7 +121,7 @@ impl Handler<ClientActorMessage> for Lobby {
                     }
                 },
                 help if help.starts_with("!help") => {
-                    self.send_message("Harmony | '!w [id] [message]' to whisper '!help' for help", &msg.id.clone())
+                    self.send_message("Harmony | '!w [id] [message]' to whisper -- '!help' for help -- '!nick [name]' to change nickname", &msg.id.clone())
                 },
                 nickname if nickname.starts_with("!nick") => {
                     if let Some(nick) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(1) {

@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_c5c1b47195f246fcd2672c546e8c4d526e328687(Module, $0) { $0 = Module.STDWEB_PRIVATE.to_js($0);console.info(($0)); }
+export function __cargo_web_snippet_4a7df277900746999886798c4e9ff738877c3d95(Module, $0) { $0 = Module.STDWEB_PRIVATE.to_js($0);var handle=($0);clearInterval(handle.interval_id);handle.callback.drop(); }

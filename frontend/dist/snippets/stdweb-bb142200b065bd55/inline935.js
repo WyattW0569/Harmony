@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_dc2fd915bd92f9e9c6a3bd15174f1414eee3dbaf(Module) { console.error( 'Encountered a panic!' ); }
+export function __cargo_web_snippet_f706e60b0e236338195aefa9b7488fb1862642aa(Module, $0, $1, $2) { $1 = Module.STDWEB_PRIVATE.to_js($1);$2 = Module.STDWEB_PRIVATE.to_js($2);Module.STDWEB_PRIVATE.from_js($0, (function(){return Module.STDWEB_PRIVATE.get_raw_value(($1))===Module.STDWEB_PRIVATE.get_raw_value(($2));})()); }

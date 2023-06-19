@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_ecd8f83530fd9b57edbdc4822b4ea5b373e3a927(Module, $0) { var o = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (o instanceof Gamepad); }
+export function __cargo_web_snippet_ff5103e6cc179d13b4c7a785bdce2708fd559fc0(Module, $0) { Module.STDWEB_PRIVATE.tmp = Module.STDWEB_PRIVATE.to_js( $0 ); }

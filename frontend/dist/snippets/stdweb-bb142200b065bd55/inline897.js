@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_a25852c51af085f4ed732c8841ca8ff3a4c18fc1(Module, $0, $1, $2) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);$2 = Module.STDWEB_PRIVATE.to_js($2);($0).open(($1),($2),true); }
+export function __cargo_web_snippet_e2aefaa15afeb6b2c4ba7a192261eaa8d4172044(Module, $0, $1, $2) { $1 = Module.STDWEB_PRIVATE.to_js($1);$2 = Module.STDWEB_PRIVATE.to_js($2);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).lookupNamespaceURI(($2));})()); }

@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_3b946c36eaa36663334c20b465ae1e97a55f13d0(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).tangentialPressure;})()); }
+export function __cargo_web_snippet_5c57e16ebd22655f976d87fae8039e282d7bab59(Module, $0) { Module.STDWEB_PRIVATE.from_js($0, (function(){return Array.from(navigator.getGamepads());})()); }

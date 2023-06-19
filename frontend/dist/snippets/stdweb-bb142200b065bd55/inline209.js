@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_796ebe042284429885b49fedcf62806aa0a4d612(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return($1).naturalWidth;})()); }
+export function __cargo_web_snippet_291764560d8c93ce57bd9acbf57c871154dfcf94(Module, $0) { var o = Module.STDWEB_PRIVATE.acquire_js_reference( $0 );return (o instanceof MouseEvent && o.type === "dblclick"); }

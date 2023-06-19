@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_1cd2480577300069ee180a301b489813d9497d49(Module, $0, $1) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);($0).drawFocusIfNeeded(($1)); }
+export function __cargo_web_snippet_5acd702f93bb4304e9759f941189e7b4b7d68da1(Module, $0, $1) { $1 = Module.STDWEB_PRIVATE.to_js($1);Module.STDWEB_PRIVATE.from_js($0, (function(){return new MutationObserver(($1));})()); }

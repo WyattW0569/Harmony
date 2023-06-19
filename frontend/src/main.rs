@@ -33,13 +33,14 @@ enum Route {
 //  The following must be set to Local IP of Host Computer
 //    -  frontend/src/main.rs HOST_IP 
 //    -  frontend/trunk.toml [[proxy]]
-//    -  frontend/src/components/room.rs get_open_rooms() 
+//    -  frontend/src/components/room.rs get_open_rooms()
+//    -  frontend/src/components/names.rs let nick_name_map 
 //
 //  **
 
 //https://lib.rs/crates/yew-api-hook
 
-static HOST_IP: &str = "192.168.0.147";
+static HOST_IP: &str = "10.57.17.0";
 
 #[function_component(Home)]
 fn home() -> Html {
@@ -57,27 +58,29 @@ fn home() -> Html {
                     <div class="col-4">
                         <div class="border border-5 border-white rounded p-3">
                             <div class="d-grid">
-                                <button class="btn btn-dark" onclick={to_room}>{ "Create Room" }</button>
+                                <button class="btn btn-outline-light" onclick={to_room}>
+                                <p class="display-6">{"Create Room" }</p>
+                                </button>
                                  <div class="text-center pt-3">
                                     <p class="fw-bold fst-italic text-white">
-                                        { "Lorem ipsum dolor sit amet, 
-                                        consectetur adipiscing elit. Nunc iaculis 
-                                        pharetra tempus. Sed ante dui, lobortis in iaculis id, 
-                                        consectetur efficitur enim. Quisque vehicula vulputate viverra. 
-                                        In congue et eros at semper. Suspendisse tincidunt ac purus id volutpat. 
-                                        Quisque a massa at enim molestie commodo sit amet sed metus. 
-                                        Proin semper eros eu arcu interdum convallis. Nunc nunc lectus, posuere 
+                                        {"
+                                        Welcome to Harmony! This is a simple chat app designed to be used by computers sharing the same network.
+                                        It was built by two highschool students over the course of a few months, as a first go at using the rust language
+                                        for web app development. It's built using the Yew and Actix Web frameworks. We hope you enjoy! Much love,
                                         "}
                                     </p>
                                 </div>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
-                                            <img class ="img-responsive" width = "50px" height = "50px" src="static/funny-cat-3.jpg" alt="funnycat"/>
+                                            <h1 class="display-6 float-end"> { "Wyatt" } </h1>
+                                            <img class ="img-responsive float-start" width = "50px" height = "50px" src="static/Moogle.jpg" alt="Moogle"/>
                                         </div>
                                         <div class="col">
-                                            <img class ="img-responsive" width ="50px" height = "50px" src="static/funny-cat-3.jpg" alt="funnycat"/>
+                                            <h1 class="display-6 float-end"> { "Tom" } </h1>
+                                            <img class ="img-responsive float-start" width ="50px" height = "50px" src="static/Mike.jpg" alt="Prison Mike"/>
                                         </div>
+                                        <h1 class = "display-6 text-center">{"<3"} </h1>
                                     </div>
                                 </div>
                             </div>

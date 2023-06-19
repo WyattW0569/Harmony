@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_e16925f5fb047225caca5aebacba0569cda4fd62(Module, $0, $1, $2) { $1 = Module.STDWEB_PRIVATE.to_js($1);$2 = Module.STDWEB_PRIVATE.to_js($2);Module.STDWEB_PRIVATE.from_js($0, (function(){var callback=($1);var action=function(){callback();};var delay=($2);return{interval_id:setInterval(action,delay),callback:callback,};})()); }
+export function __cargo_web_snippet_090cb0b637ba855ad5feed825560132b4a779913(Module) { console.groupEnd(); }

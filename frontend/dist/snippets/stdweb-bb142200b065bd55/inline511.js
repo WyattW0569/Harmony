@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_dcbfa3eb1cc89d9842b0ad8d9030a57a7cae7124(Module, $0) { return (Module.STDWEB_PRIVATE.acquire_js_reference( $0 ) instanceof Uint8Array) | 0; }
+export function __cargo_web_snippet_97495987af1720d8a9a923fa4683a7b683e3acd6(Module, $0, $1) { console.error( 'Panic error message:', Module.STDWEB_PRIVATE.to_js_string( $0, $1 ) ); }

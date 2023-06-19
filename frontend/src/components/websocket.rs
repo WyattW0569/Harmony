@@ -2,12 +2,9 @@ use yew::prelude::*;
 use web_sys::{MessageEvent, WebSocket};
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
-use std::collections::HashMap;
 use web_sys::{HtmlInputElement, InputEvent, KeyboardEvent};
-use web_sys::console;
-use rand::seq::SliceRandom;
 
-
+#[allow(dead_code)]
 pub struct WebSocketClient {
     messages: Vec<String>,
     socket: Option<WebSocket>,
@@ -94,8 +91,6 @@ impl Component for WebSocketClient {
                 />
             }
         };
-
-        let colors = vec!["red", "blue", "yellow", "grey", "violet", "green"];
 
         html!{
             <>

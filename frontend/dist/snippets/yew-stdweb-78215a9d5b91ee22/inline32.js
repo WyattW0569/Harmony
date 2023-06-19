@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_104d1631e8c20bf32295be271a8bac867a098e9a(Module) { console.groupCollapsed(); }
+export function __cargo_web_snippet_4fd31c9e56d40b8642cf9e6f96fd6b570f355cea(Module, $0) { $0 = Module.STDWEB_PRIVATE.to_js($0);console.error(($0)); }

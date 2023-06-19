@@ -1,1 +1,1 @@
-export function __cargo_web_snippet_b766f3651b54f6a49b1ee1a492dc35fb439b19d7(Module, $0) { $0 = Module.STDWEB_PRIVATE.to_js($0);console.timeEnd(($0)); }
+export function __cargo_web_snippet_a1f43b583e011a9bbeae64030b81f677e6c29005(Module, $0, $1) { $0 = Module.STDWEB_PRIVATE.to_js($0);$1 = Module.STDWEB_PRIVATE.to_js($1);($0).checked=($1); }
