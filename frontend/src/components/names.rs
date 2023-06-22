@@ -1,13 +1,16 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
 use reqwasm::http::Request;
 use std::collections::HashMap;
 use std::rc::Rc;
 use std::cell::RefCell;
+use web_sys::console;
 
 
-#[derive(Clone)]
+#[derive()]
 pub struct NickName {
     names: Rc<RefCell<HashMap<String, String>>>,
+    listener: LocationHandle,
 }
 
 impl Component for NickName {
@@ -20,6 +23,11 @@ impl Component for NickName {
         let names: Rc<RefCell<HashMap<String, String>>> = Rc::new(RefCell::new(HashMap::new()));
 
         let names_clone = names.clone();
+
+        let listener = link.add_location_listener(link.callback(
+            |_| console::log_1(&"NickName Component Route change listener".into())
+        ))
+        .unwrap();
 
         link.send_future(async move {
             let nick_name_map: HashMap<String, String> = Request::get("http://10.57.17.0/api/nicks")
@@ -35,6 +43,7 @@ impl Component for NickName {
 
         NickName {
             names,
+            listener,
         }
     }
 

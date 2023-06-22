@@ -122,8 +122,6 @@ fn room(props: &Props) -> Html {
     let navigator = use_navigator().unwrap();
     // using .replace() instead of .push() because clicking home twice if user is already on home page will panic!
     let to_home = Callback::from(move |_| navigator.push(&Route::Home));
-
-
     
     
     html! {

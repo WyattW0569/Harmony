@@ -53,7 +53,7 @@ impl Handler<Disconnect> for Lobby {
                 .unwrap()
                 .iter()
                 .filter(|conn_id| *conn_id.to_owned() != msg.id)
-                .for_each(|user_id| self.send_message(&format!("{} disconnected.", &msg.id), user_id));
+                .for_each(|user_id| self.send_message(&format!("Harmony | {} disconnected.", &msg.id), user_id));
             if let Some(lobby) = self.rooms.get_mut(&msg.room_id) {
                 if lobby.len() > 1 {
                     lobby.remove(&msg.id);
@@ -82,7 +82,7 @@ impl Handler<Connect> for Lobby {
             .unwrap()
             .iter()
             .filter(|conn_id| *conn_id.to_owned() != msg.self_id)
-            .for_each(|conn_id| self.send_message(&format!("{} just joined!", msg.self_id), conn_id));
+            .for_each(|conn_id| self.send_message(&format!("Harmony | {} just joined!", msg.self_id), conn_id));
 
 
         // store the address
@@ -97,7 +97,7 @@ impl Handler<Connect> for Lobby {
             "Guest".to_string(),
         );
 
-        // send self your new uuid
+        // send self your new uuid, Currently skipped
         self.send_message(&format!("your id is {}", msg.self_id), &msg.self_id);
     }
 }
@@ -114,7 +114,7 @@ impl Handler<ClientActorMessage> for Lobby {
                 whisper if whisper.starts_with("!w") => {
                     if let Some(id_to) = msg.msg.split_whitespace().collect::<Vec<&str>>().get(1) {
                         if let Ok(uuid) = &Uuid::parse_str(id_to) {
-                            self.send_message(&msg.msg, uuid);
+                            self.send_message(format!("Harmony | {}", &msg.msg).as_str(), uuid);
                         } else {
                             println!("Invalid Whisper");
                         }

@@ -5,7 +5,7 @@ use std::rc::Rc;
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use crate::Route;
-
+use web_sys::console;
 
 async fn get_open_rooms() -> HashMap<String, HashSet<String>> {
     let url = "http://10.57.17.0/api/rooms";
@@ -64,6 +64,7 @@ impl Component for RoomBlock {
 pub struct RoomsListBlock {
     rooms: Rc<RefCell<Vec<String>>>,
     population: Rc<RefCell<Vec<i32>>>,
+    listener: LocationHandle,
 }
 
 impl Component for RoomsListBlock {
@@ -74,6 +75,10 @@ impl Component for RoomsListBlock {
         let link = ctx.link().clone();
         let rooms: Rc<RefCell<Vec<String>>> = Rc::new(RefCell::new(Vec::new()));
         let population: Rc<RefCell<Vec<i32>>> = Rc::new(RefCell::new(Vec::new()));
+        let listener = link.add_location_listener(link.callback(
+            |_| console::log_1(&"RoomList Component Route change listener".into())
+        )) 
+        .unwrap();
 
         let rooms_clone = rooms.clone();
         let population_clone = population.clone();
@@ -94,6 +99,7 @@ impl Component for RoomsListBlock {
         RoomsListBlock {
             rooms,
             population,
+            listener,
         }
     }
 
